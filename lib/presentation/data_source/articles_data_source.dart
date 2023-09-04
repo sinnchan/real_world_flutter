@@ -29,7 +29,7 @@ class ArticlesDataSource extends ChangeNotifier {
     super.dispose();
   }
 
-  ArticleListItem getByIndex(int index) {
+  ArticleListItemType getByIndex(int index) {
     var startingIndex = (index ~/ itemsPerPage) * itemsPerPage;
 
     if (_pages.containsKey(startingIndex)) {
@@ -39,7 +39,7 @@ class ArticlesDataSource extends ChangeNotifier {
 
     _fetchPage(startingIndex);
 
-    return const ArticleListItem.isLoading();
+    return const ArticleListItemType.isLoading();
   }
 
   Future<void> _fetchPage(int startingIndex) async {
@@ -63,7 +63,7 @@ class ArticlesDataSource extends ChangeNotifier {
         }
 
         _pages[startingIndex] = ArticleListItemPage(
-          items: articles.map((e) => ArticleListItem.data(e)).toList(),
+          items: articles.map((e) => ArticleListItemType.data(e)).toList(),
           startingIndex: startingIndex,
         );
         _pruneCache(startingIndex);
@@ -92,15 +92,15 @@ class ArticlesDataSource extends ChangeNotifier {
 }
 
 @freezed
-class ArticleListItem with _$ArticleListItem {
-  const factory ArticleListItem.isLoading() = _Loading;
-  const factory ArticleListItem.data(Article article) = _Data;
+class ArticleListItemType with _$ArticleListItemType {
+  const factory ArticleListItemType.isLoading() = _Loading;
+  const factory ArticleListItemType.data(Article article) = _Data;
 }
 
 @freezed
 class ArticleListItemPage with _$ArticleListItemPage {
   const factory ArticleListItemPage({
-    required List<ArticleListItem> items,
+    required List<ArticleListItemType> items,
     required int startingIndex,
   }) = _Page;
 }
