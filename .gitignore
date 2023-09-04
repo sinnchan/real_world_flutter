@@ -43,8 +43,10 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-# build_runner
+# fvm
+.fvm/
 
+# build_runner
 *.freezed.dart
 *.g.dart
 
