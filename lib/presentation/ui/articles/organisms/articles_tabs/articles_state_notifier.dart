@@ -3,7 +3,7 @@ import 'package:real_world_flutter/domain/repository/articles_repository.dart';
 import 'package:real_world_flutter/domain/repository/user_repository.dart';
 import 'package:real_world_flutter/presentation/data_source/articles_data_source.dart';
 import 'package:real_world_flutter/presentation/data_source/articles_data_source_type.dart';
-import 'package:real_world_flutter/presentation/ui/articles/organisms/articles_view_model.dart';
+import 'package:real_world_flutter/presentation/ui/articles/organisms/articles_tabs/articles_view_model.dart';
 import 'package:rxdart/utils.dart';
 
 typedef _Vm = ArticlesOrganizmViewModel;

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:real_world_flutter/presentation/ui/articles/organisms/articles_list.dart';
-import 'package:real_world_flutter/presentation/ui/articles/organisms/articles_state_notifier.dart';
-import 'package:real_world_flutter/presentation/ui/articles/organisms/articles_view_model.dart';
+import 'package:real_world_flutter/presentation/ui/articles/organisms/articles_tabs/articles_state_notifier.dart';
+import 'package:real_world_flutter/presentation/ui/articles/organisms/articles_tabs/articles_view_model.dart';
 import 'package:real_world_flutter/presentation/ui/common/molecules/loading_overlay.dart';
 
 class ArticleListTabs extends StatefulHookConsumerWidget {

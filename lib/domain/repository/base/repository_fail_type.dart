@@ -5,7 +5,9 @@ part 'repository_fail_type.g.dart';
 
 @freezed
 class RepositoryFailType with _$RepositoryFailType {
-  const factory RepositoryFailType.unauthorized() = _Unauthorized;
+  const factory RepositoryFailType.unauthorized({
+    @Default('Unauthorized') String message,
+  }) = _Unauthorized;
   const factory RepositoryFailType.unexpected({
     required String message,
   }) = _Unexpected;

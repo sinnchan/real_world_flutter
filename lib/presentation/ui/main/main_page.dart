@@ -16,25 +16,26 @@ class MainPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final vm = ref.watch(MainPageNotifier.provider);
+
     final notifier = ref.watch(MainPageNotifier.provider.notifier);
+
+    final tagButton = IconButton(
+      icon: const Icon(
+        Icons.sell,
+        color: AppColors.white,
+      ),
+      onPressed: () async {},
+    );
 
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: const Text('conduit'),
         backgroundColor: Theme.of(context).primaryColor,
-        actions: [
-          IconButton(
-            icon: const Icon(
-              Icons.sell,
-              color: AppColors.white,
-            ),
-            onPressed: () async {},
-          ),
-        ],
+        actions: vm.isShowTagButton ? [tagButton] : null,
       ),
       body: child,
-      floatingActionButton: vm.isLoggedIn
+      floatingActionButton: vm.isShowActionButton
           ? FloatingActionButton(
               child: const Icon(Icons.edit),
               onPressed: () async {

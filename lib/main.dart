@@ -22,7 +22,11 @@ class RealWorldApp extends ConsumerWidget {
   ThemeData _themeData() {
     return ThemeData(
       useMaterial3: true,
-      primaryColor: AppColors.main,
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: AppColors.main,
+        primary: AppColors.main,
+        outline: AppColors.lightGray,
+      ),
       dividerColor: AppColors.lightGray,
       appBarTheme: AppBarTheme(
         backgroundColor: AppColors.main,
@@ -32,19 +36,42 @@ class RealWorldApp extends ConsumerWidget {
           fontSize: 25,
         ),
       ),
-      tabBarTheme: const TabBarTheme(
-        indicatorColor: AppColors.main,
-        labelColor: AppColors.main,
-      ),
-      progressIndicatorTheme: const ProgressIndicatorThemeData(
-        color: AppColors.main,
-      ),
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
         backgroundColor: AppColors.main,
         foregroundColor: AppColors.white,
       ),
-      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-        selectedItemColor: AppColors.main,
+      inputDecorationTheme: const InputDecorationTheme(
+        outlineBorder: BorderSide(color: AppColors.main),
+        border: OutlineInputBorder(),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: AppColors.main),
+        ),
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.resolveWith((states) {
+            if (states.contains(MaterialState.disabled)) {
+              return AppColors.lightGray;
+            } else {
+              return AppColors.main;
+            }
+          }),
+          foregroundColor: MaterialStateProperty.resolveWith((states) {
+            if (states.contains(MaterialState.disabled)) {
+              return AppColors.grey;
+            } else {
+              return AppColors.white;
+            }
+          }),
+          overlayColor: MaterialStateProperty.resolveWith((states) {
+            return states.contains(MaterialState.pressed)
+                ? AppColors.sub
+                : null;
+          }),
+          shape: MaterialStateProperty.all(RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(4),
+          )),
+        ),
       ),
     );
   }
@@ -52,6 +79,7 @@ class RealWorldApp extends ConsumerWidget {
 
 class AppColors {
   static const main = Color(0xFF5CB85D);
+  static const sub = Color(0xFF377038);
   static const white = Color(0xFFFFFFFF);
   static const lightGray = Color(0xFFCCCCCC);
   static const grey = Colors.grey;

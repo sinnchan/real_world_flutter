@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:real_world_flutter/domain/repository/user_repository.dart';
-import 'package:real_world_flutter/presentation/ui/articles/organisms/article_list_tabs.dart';
+import 'package:real_world_flutter/presentation/ui/articles/organisms/articles_tabs/article_list_tabs.dart';
 import 'package:real_world_flutter/presentation/ui/main/main_page.dart';
+import 'package:real_world_flutter/presentation/ui/profile/organisms/sign_in.dart';
+import 'package:real_world_flutter/presentation/ui/profile/organisms/sign_up.dart';
 
 class AppNavigation {
   final UserRepository userRepository;
@@ -42,7 +44,7 @@ class AppNavigation {
             path: '/login',
             pageBuilder: (context, state) {
               return const NoTransitionPage(
-                child: Center(child: Text('login')),
+                child: SignIn(),
               );
             },
           ),
@@ -50,11 +52,18 @@ class AppNavigation {
             path: '/register',
             pageBuilder: (context, state) {
               return const NoTransitionPage(
-                child: Center(child: Text('register')),
+                child: SignUp(),
               );
             },
           ),
-          // GoRoute(path: '/settings'),
+          GoRoute(
+            path: '/settings',
+            pageBuilder: (context, state) {
+              return const NoTransitionPage(
+                child: Center(child: Text('settings')),
+              );
+            },
+          ),
           // GoRoute(path: '/article/:article_slug'),
           // GoRoute(
           //   path: '/profile',

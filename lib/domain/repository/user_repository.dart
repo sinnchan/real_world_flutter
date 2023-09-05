@@ -21,7 +21,6 @@ class UserRepository extends BaseRepository {
     );
   });
 
-  // token の保存状態を見てログイン済みかを判断します。
   Stream<bool> get loginStatusStream {
     return secStorage
         .watch(SecureStorageKey.token)
@@ -29,12 +28,14 @@ class UserRepository extends BaseRepository {
   }
 
   Future<RepositoryResult<User>> signUp({
+    required String username,
     required String email,
     required String password,
   }) async {
     sLogger.i('UserRepository.signUp()');
     final request = {
       'user': {
+        'username': username,
         'email': email,
         'password': password,
       },
@@ -52,14 +53,12 @@ class UserRepository extends BaseRepository {
   }
 
   Future<RepositoryResult<User>> signIn({
-    required String username,
     required String email,
     required String password,
   }) async {
     sLogger.i('UserRepository.signIn()');
     final request = {
       'user': {
-        'username': username,
         'email': email,
         'password': password,
       },

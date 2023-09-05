@@ -47,6 +47,7 @@ dependencies:
   logger: ^2.0.1
   retrofit: ^4.0.1
   rxdart: ^0.27.7
+  kotlin_scope_function: ^1.0.2
 
 dev_dependencies:
   flutter_test:
