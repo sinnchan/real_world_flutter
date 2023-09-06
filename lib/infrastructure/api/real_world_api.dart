@@ -39,17 +39,17 @@ abstract class RealWorldApi {
     @Body() Map<String, dynamic> body,
   );
 
-  @GET('/users')
+  @GET('/user')
   @Headers(_headers)
   Future<ApiUserResponse> getUser({
     @Header('Authorization') required ApiToken token,
   });
 
-  @PUT('/users')
+  @PUT('/user')
   @Headers(_headers)
   Future<ApiUserResponse> putUser({
     @Header('Authorization') required ApiToken token,
-    @Body() required ApiUser user,
+    @Body() required Map<String, dynamic> body,
   });
 
   // articles

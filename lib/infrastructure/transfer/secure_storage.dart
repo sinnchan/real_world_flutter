@@ -56,10 +56,14 @@ class SecureStorage {
       key: key.name,
       value: value,
     );
+
+    _streams[key]?.add(value);
   }
 
   Future<void> delete(SecureStorageKey key) async {
     await _secureStorage.delete(key: key.name);
+
+    _streams[key]?.add(null);
   }
 
   Future<void> deleteAll() async {

@@ -65,7 +65,7 @@ class RealWorldApp extends ConsumerWidget {
           }),
           overlayColor: MaterialStateProperty.resolveWith((states) {
             return states.contains(MaterialState.pressed)
-                ? AppColors.sub
+                ? AppColors.deepMain
                 : null;
           }),
           shape: MaterialStateProperty.all(RoundedRectangleBorder(
@@ -79,7 +79,8 @@ class RealWorldApp extends ConsumerWidget {
 
 class AppColors {
   static const main = Color(0xFF5CB85D);
-  static const sub = Color(0xFF377038);
+  static const deepMain = Color(0xFF377038);
+  static const important = Color(0xFFDC3A40);
   static const white = Color(0xFFFFFFFF);
   static const lightGray = Color(0xFFCCCCCC);
   static const grey = Colors.grey;

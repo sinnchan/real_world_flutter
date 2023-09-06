@@ -105,16 +105,32 @@ class UserRepository extends BaseRepository {
     );
   }
 
-  Future<RepositoryResult<User>> updateUser(User user) async {
-    sLogger.i('UserRepository.getUser()');
+  Future<RepositoryResult<User>> updateUser({
+    String? pictureUrl,
+    String? username,
+    String? bio,
+    String? email,
+    String? password,
+  }) async {
+    sLogger.i('UserRepository.updateUser()');
 
     final token = await secStorage.read(SecureStorageKey.token);
     if (token == null) {
       return const Result.failed(RepositoryFailType.unauthorized());
     }
 
+    final request = {
+      'user': {
+        'email': email,
+        'password': password,
+        'username': username,
+        'bio': bio,
+        'iamge': pictureUrl,
+      },
+    };
+
     final result = await apiResultWrapper(() {
-      return api.getUser(token: ApiToken(token));
+      return api.putUser(token: ApiToken(token), body: request);
     });
 
     return result.successMap(
