@@ -57,7 +57,7 @@ class MainPage extends HookConsumerWidget {
             label: 'Profile',
             icon: Icon(Icons.person),
           ),
-          if (vm.isLoggedIn)
+          if (vm.isShowSettingBottomTab)
             const BottomNavigationBarItem(
               label: 'Settings',
               icon: Icon(Icons.settings),

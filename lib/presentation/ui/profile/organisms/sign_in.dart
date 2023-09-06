@@ -62,6 +62,7 @@ class SignIn extends HookConsumerWidget {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         showDialog(
           context: context,
+          barrierDismissible: false,
           builder: (context) {
             return AlertDialog(
               title: const Text('Error'),

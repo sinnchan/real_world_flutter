@@ -14,6 +14,7 @@ class MainPageNotifier extends StateNotifier<MainViewModel> {
   final GoRouter goRouter;
   final UserRepository userRepository;
   final subscriptions = CompositeSubscription();
+  var isLoggedIn = false;
 
   MainPageNotifier(
     super.state, {
@@ -22,6 +23,7 @@ class MainPageNotifier extends StateNotifier<MainViewModel> {
   });
 
   static final provider = _Provider((ref) {
+    sLogger.d('Instantinate main notifier');
     final goRouter = ref.watch(AppNavigation.provider).router;
     final notifier = MainPageNotifier(
       const _Vm(),
@@ -48,12 +50,16 @@ class MainPageNotifier extends StateNotifier<MainViewModel> {
   @override
   void dispose() {
     subscriptions.dispose();
+    sLogger.d('Dispose main notifier');
     super.dispose();
   }
 
   Future<void> loadState() async {
     userRepository.loginStatusStream.listen((isLoggedIn) {
-      state = state.copyWith(isLoggedIn: isLoggedIn);
+      sLogger.i('updated login status: $isLoggedIn');
+      this.isLoggedIn = isLoggedIn;
+      state = state.copyWith(isShowSettingBottomTab: isLoggedIn);
+      goRouter.go('/');
     }).addTo(subscriptions);
   }
 
@@ -76,7 +82,7 @@ class MainPageNotifier extends StateNotifier<MainViewModel> {
       case '/':
         state = state.copyWith(
           selectedTabIndex: 0,
-          isShowActionButton: state.isLoggedIn,
+          isShowActionButton: isLoggedIn,
           isShowTagButton: true,
         );
       case '/login':
@@ -106,7 +112,7 @@ class MainPageNotifier extends StateNotifier<MainViewModel> {
       default:
         state = state.copyWith(
           selectedTabIndex: 0,
-          isShowActionButton: state.isLoggedIn,
+          isShowActionButton: isLoggedIn,
           isShowTagButton: true,
         );
     }

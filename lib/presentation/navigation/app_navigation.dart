@@ -6,6 +6,7 @@ import 'package:real_world_flutter/presentation/ui/articles/organisms/articles_t
 import 'package:real_world_flutter/presentation/ui/main/main_page.dart';
 import 'package:real_world_flutter/presentation/ui/profile/organisms/sign_in.dart';
 import 'package:real_world_flutter/presentation/ui/profile/organisms/sign_up.dart';
+import 'package:real_world_flutter/presentation/ui/settings/organisms/settings.dart';
 
 class AppNavigation {
   final UserRepository userRepository;
@@ -60,7 +61,7 @@ class AppNavigation {
             path: '/settings',
             pageBuilder: (context, state) {
               return const NoTransitionPage(
-                child: Center(child: Text('settings')),
+                child: Settings(),
               );
             },
           ),

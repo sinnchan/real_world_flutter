@@ -42,6 +42,7 @@ class SignInStateNotifier extends StateNotifier<SignInViewModel> {
       isEnableSignInButton: state.email.isNotEmpty && password.isNotEmpty,
     );
   }
+
   void onTapNeedAccount() {
     _goRouter.go('/register');
   }
@@ -69,16 +70,15 @@ class SignInStateNotifier extends StateNotifier<SignInViewModel> {
       success: (user) {
         pLogger.d(user.toJson());
         state = state.copyWith(isLoading: false);
-        _goRouter.go('/');
       },
       failed: (err) {
         pLogger.e(err.toJson());
         state = state.copyWith(
           isLoading: false,
-          errorMessage: err.message,
+          errorMessage:
+              '${err.message}\nPlease confirm your Email or Passowrd.',
         );
       },
     );
   }
-
 }

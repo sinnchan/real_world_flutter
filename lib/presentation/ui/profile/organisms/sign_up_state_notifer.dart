@@ -73,7 +73,6 @@ class SignUpStateNotifier extends StateNotifier<_Vm> {
       success: (user) {
         pLogger.d(user.toJson());
         state = state.copyWith(isLoading: false);
-        _goRouter.go('/');
       },
       failed: (err) {
         pLogger.e(err.toJson());

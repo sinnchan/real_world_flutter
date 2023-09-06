@@ -6,9 +6,8 @@ part 'main_view_model.freezed.dart';
 class MainViewModel with _$MainViewModel {
   const factory MainViewModel({
     @Default(0) int selectedTabIndex,
-    @Default(false) bool isLoggedIn,
+    @Default(false) bool isShowSettingBottomTab,
     @Default(false) bool isShowActionButton,
     @Default(true) bool isShowTagButton,
   }) = _MainViewModel;
 }
-

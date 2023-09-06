@@ -15,6 +15,11 @@ class UserRepository extends BaseRepository {
   });
 
   static final provider = Provider.autoDispose((ref) {
+    sLogger.d('Instantinate user repository');
+    ref.onDispose(() {
+      sLogger.d('Dispose user repository');
+    });
+
     return UserRepository(
       api: ref.watch(RealWorldApi.provider),
       secStorage: ref.watch(SecureStorage.provider),
@@ -74,6 +79,11 @@ class UserRepository extends BaseRepository {
         return _toUserFromApiUserResponse(data);
       },
     );
+  }
+
+  Future<void> signOut() {
+    sLogger.i('UserRepository.signOut()');
+    return secStorage.delete(SecureStorageKey.token);
   }
 
   Future<RepositoryResult<User>> getUser() async {
