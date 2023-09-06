@@ -8,7 +8,7 @@ class MainViewModel with _$MainViewModel {
     @Default(0) int selectedTabIndex,
     @Default(false) bool isLoggedIn,
     @Default(false) bool isShowActionButton,
-    @Default(false) bool isShowTagButton,
+    @Default(true) bool isShowTagButton,
   }) = _MainViewModel;
 }
 

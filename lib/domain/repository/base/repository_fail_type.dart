@@ -6,10 +6,10 @@ part 'repository_fail_type.g.dart';
 @freezed
 class RepositoryFailType with _$RepositoryFailType {
   const factory RepositoryFailType.unauthorized({
-    @Default('Unauthorized') String message,
+    @Default('unauthorized') String message,
   }) = _Unauthorized;
   const factory RepositoryFailType.unexpected({
-    required String message,
+    @Default('unexpected') String message,
   }) = _Unexpected;
 
   factory RepositoryFailType.fromJson(Map<String, dynamic> json) =>

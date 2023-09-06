@@ -38,9 +38,11 @@ abstract class BaseRepository {
 
   RepositoryFailType toRepositoryFailType(DioException ex) {
     return switch (ex.response?.statusCode) {
-      401 => const RepositoryFailType.unauthorized(),
+      401 => RepositoryFailType.unauthorized(
+          message: ex.response?.statusMessage ?? 'unauthorized',
+        ),
       422 => RepositoryFailType.unexpected(
-          message: ex.response?.statusMessage ?? 'unknown error',
+          message: ex.response?.statusMessage ?? 'unexpected',
         ),
       _ => const RepositoryFailType.unexpected(message: 'unknown error'),
     };

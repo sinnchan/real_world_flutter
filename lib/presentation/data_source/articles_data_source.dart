@@ -48,9 +48,20 @@ class ArticlesDataSource extends ChangeNotifier {
     }
 
     _pagesBeingFetched.add(startingIndex);
-    final result = await repository.getArticles(
-      offset: startingIndex,
-      limit: itemsPerPage,
+    final result = await type.when(
+      myFeed: () => repository.getFeeds(
+        offset: startingIndex,
+        limit: itemsPerPage,
+      ),
+      global: () => repository.getArticles(
+        offset: startingIndex,
+        limit: itemsPerPage,
+      ),
+      tag: (tag) => repository.getArticles(
+        tag: tag,
+        offset: startingIndex,
+        limit: itemsPerPage,
+      ),
     );
     _pagesBeingFetched.remove(startingIndex);
 
