@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:real_world_flutter/presentation/ui/auth/organisms/sign_in/sign_in_state_notifier.dart';
+import 'package:real_world_flutter/presentation/ui/auth/organisms/sign_in/sign_in_view_model.dart';
 import 'package:real_world_flutter/presentation/ui/common/molecules/loading_overlay.dart';
-import 'package:real_world_flutter/presentation/ui/profile/organisms/sign_in_state_notifier.dart';
-import 'package:real_world_flutter/presentation/ui/profile/organisms/sign_in_view_model.dart';
 
 class SignIn extends HookConsumerWidget {
   const SignIn({super.key});

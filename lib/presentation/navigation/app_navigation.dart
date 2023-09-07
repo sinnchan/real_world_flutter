@@ -3,9 +3,9 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:real_world_flutter/domain/repository/user_repository.dart';
 import 'package:real_world_flutter/presentation/ui/articles/organisms/articles_tabs/article_list_tabs.dart';
+import 'package:real_world_flutter/presentation/ui/auth/organisms/sign_in/sign_in.dart';
+import 'package:real_world_flutter/presentation/ui/auth/organisms/sign_up/sign_up.dart';
 import 'package:real_world_flutter/presentation/ui/main/main_page.dart';
-import 'package:real_world_flutter/presentation/ui/profile/organisms/sign_in.dart';
-import 'package:real_world_flutter/presentation/ui/profile/organisms/sign_up.dart';
 import 'package:real_world_flutter/presentation/ui/settings/organisms/settings.dart';
 
 class AppNavigation {

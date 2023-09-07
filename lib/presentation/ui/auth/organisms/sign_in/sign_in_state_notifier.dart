@@ -3,7 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:real_world_flutter/domain/repository/user_repository.dart';
 import 'package:real_world_flutter/domain/util/logger.dart';
 import 'package:real_world_flutter/presentation/navigation/app_navigation.dart';
-import 'package:real_world_flutter/presentation/ui/profile/organisms/sign_in_view_model.dart';
+import 'package:real_world_flutter/presentation/ui/auth/organisms/sign_in/sign_in_view_model.dart';
 
 typedef _Vm = SignInViewModel;
 typedef _Notifier = SignInStateNotifier;

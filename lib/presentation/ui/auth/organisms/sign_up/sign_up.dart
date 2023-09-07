@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:real_world_flutter/presentation/ui/auth/organisms/sign_up/sign_up_state_notifer.dart';
+import 'package:real_world_flutter/presentation/ui/auth/organisms/sign_up/sign_up_view_model.dart';
 import 'package:real_world_flutter/presentation/ui/common/molecules/loading_overlay.dart';
-import 'package:real_world_flutter/presentation/ui/profile/organisms/sign_up_state_notifer.dart';
-import 'package:real_world_flutter/presentation/ui/profile/organisms/sign_up_view_model.dart';
 
 class SignUp extends HookConsumerWidget {
   const SignUp({super.key});
@@ -28,26 +28,6 @@ class SignUp extends HookConsumerWidget {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Container _signInButton(
-    BuildContext context,
-    SignUpViewModel vm,
-    SignUpStateNotifier notifier,
-  ) {
-    return Container(
-      padding: const EdgeInsets.only(top: 20),
-      alignment: Alignment.centerRight,
-      child: ElevatedButton(
-        onPressed: vm.isEnableSignUpButton
-            ? () {
-                FocusScope.of(context).unfocus();
-                notifier.onTapSignUp();
-              }
-            : null,
-        child: const Text('Sign up'),
       ),
     );
   }
@@ -83,17 +63,17 @@ class SignUp extends HookConsumerWidget {
     }
   }
 
-  Widget _haveAccount(SignUpStateNotifier notifier) {
-    return TextButton(
-      onPressed: notifier.onTapHaveAccount,
-      child: const Text('Have an account?'),
-    );
-  }
-
   Widget _title() {
     return const Text(
       'Sign up',
       style: TextStyle(fontSize: 32),
+    );
+  }
+
+  Widget _haveAccount(SignUpStateNotifier notifier) {
+    return TextButton(
+      onPressed: notifier.onTapHaveAccount,
+      child: const Text('Have an account?'),
     );
   }
 
@@ -128,6 +108,26 @@ class SignUp extends HookConsumerWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Container _signInButton(
+    BuildContext context,
+    SignUpViewModel vm,
+    SignUpStateNotifier notifier,
+  ) {
+    return Container(
+      padding: const EdgeInsets.only(top: 20),
+      alignment: Alignment.centerRight,
+      child: ElevatedButton(
+        onPressed: vm.isEnableSignUpButton
+            ? () {
+                FocusScope.of(context).unfocus();
+                notifier.onTapSignUp();
+              }
+            : null,
+        child: const Text('Sign up'),
       ),
     );
   }
