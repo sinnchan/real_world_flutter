@@ -28,19 +28,19 @@ class SignUpStateNotifier extends StateNotifier<_Vm> {
   });
 
   void onUpdateUsername(String? value) {
-    state = _updateSignUpEnable(
+    state = _updateEnableOfSignUp(
       state.copyWith(username: value ?? ''),
     );
   }
 
   void onUpdateEmail(String? value) {
-    state = _updateSignUpEnable(
+    state = _updateEnableOfSignUp(
       state.copyWith(email: value ?? ''),
     );
   }
 
   void onUpdatePassword(String? value) {
-    state = _updateSignUpEnable(
+    state = _updateEnableOfSignUp(
       state.copyWith(password: value ?? ''),
     );
   }
@@ -84,8 +84,8 @@ class SignUpStateNotifier extends StateNotifier<_Vm> {
     );
   }
 
-  _Vm _updateSignUpEnable(_Vm newState) {
-    return state.copyWith(
+  _Vm _updateEnableOfSignUp(_Vm newState) {
+    return newState.copyWith(
       isEnableSignUpButton: newState.username.isNotEmpty &&
           newState.email.isNotEmpty &&
           newState.password.isNotEmpty,

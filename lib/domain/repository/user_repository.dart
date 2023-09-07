@@ -47,11 +47,12 @@ class UserRepository extends BaseRepository {
     };
 
     final result = await apiResultWrapper(() {
-      return api.postUserLogin(request);
+      return api.postUser(request);
     });
 
     return result.successMap(
       transform: (data) {
+        secStorage.write(SecureStorageKey.token, data.user.token);
         return _toUserFromApiUserResponse(data);
       },
     );
