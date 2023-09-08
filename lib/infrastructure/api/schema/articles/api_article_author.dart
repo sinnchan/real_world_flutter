@@ -8,8 +8,8 @@ class ApiArticleAuthor with _$ApiArticleAuthor {
   const factory ApiArticleAuthor({
     required String username,
     String? bio,
-    required Uri image,
-    required bool following,
+    Uri? image,
+    bool? following,
   }) = _ApiArticleAuthor;
 
   factory ApiArticleAuthor.fromJson(Map<String, dynamic> json) =>

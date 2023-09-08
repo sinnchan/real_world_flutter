@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:real_world_flutter/main.dart';
+import 'package:real_world_flutter/presentation/ui/common/color/ext_color.dart';
 import 'package:real_world_flutter/presentation/ui/common/molecules/loading_overlay.dart';
 import 'package:real_world_flutter/presentation/ui/settings/organisms/settings_state_notifier.dart';
 import 'package:real_world_flutter/presentation/ui/settings/organisms/settings_view_model.dart';
@@ -20,42 +21,22 @@ class Settings extends HookConsumerWidget {
     final emailTextController = useTextEditingController();
     final passwordTextController = useTextEditingController();
 
-    useEffect(
-      () {
-        imageUrlTextController.text = vm.imageUrl ?? '';
-        return null;
-      },
-      [vm.imageUrl],
-    );
-    useEffect(
-      () {
-        usernameTextController.text = vm.username ?? '';
-        return null;
-      },
-      [vm.username],
-    );
-    useEffect(
-      () {
-        bioTextController.text = vm.bio ?? '';
-        return null;
-      },
-      [vm.bio],
-    );
-    useEffect(
-      () {
-        emailTextController.text = vm.email ?? '';
-        return null;
-      },
-      [vm.email],
-    );
-    useEffect(
-      () {
-        passwordTextController.text = vm.password ?? '';
-        return null;
-      },
-      [vm.password],
-    );
-
+    // handle changed state.
+    useValueChanged<String?, void>(vm.imageUrl, (_, __) {
+      imageUrlTextController.text = vm.imageUrl ?? '';
+    });
+    useValueChanged<String?, void>(vm.username, (_, __) {
+      usernameTextController.text = vm.username ?? '';
+    });
+    useValueChanged<String?, void>(vm.bio, (_, __) {
+      bioTextController.text = vm.bio ?? '';
+    });
+    useValueChanged<String?, void>(vm.email, (_, __) {
+      emailTextController.text = vm.email ?? '';
+    });
+    useValueChanged<String?, void>(vm.password, (_, __) {
+      passwordTextController.text = vm.password ?? '';
+    });
     _ifNeedShowDialog(context, vm, notifier);
 
     return LoadingOverlay(
@@ -77,7 +58,7 @@ class Settings extends HookConsumerWidget {
                 decoration: const InputDecoration(
                   hintText: 'URL of profile picture',
                 ),
-                onChanged: notifier.updatePictureUrl,
+                onChanged: notifier.updateImageUrl,
               ),
               _space(),
               TextFormField(
@@ -136,7 +117,7 @@ class Settings extends HookConsumerWidget {
               ),
               _space(),
               const Divider(),
-              _space(),
+              _space(40),
               _logoutButton(notifier),
             ],
           ),
@@ -180,21 +161,9 @@ class Settings extends HookConsumerWidget {
     SettingsStateNotifier notifier,
   ) {
     final style = ButtonStyle(
-      foregroundColor: MaterialStateProperty.resolveWith((states) {
-        if (states.contains(MaterialState.pressed)) {
-          return AppColors.white;
-        } else {
-          return AppColors.important;
-        }
-      }),
-      backgroundColor: MaterialStateProperty.resolveWith((states) {
-        if (states.contains(MaterialState.pressed)) {
-          return AppColors.important;
-        } else {
-          return AppColors.white;
-        }
-      }),
-      overlayColor: const MaterialStatePropertyAll(Colors.transparent),
+      foregroundColor: const MaterialStatePropertyAll(AppColors.white),
+      backgroundColor: const MaterialStatePropertyAll(AppColors.important),
+      overlayColor: MaterialStatePropertyAll(AppColors.important.withDark()),
       shape: MaterialStatePropertyAll(RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(4),
       )),
@@ -204,7 +173,7 @@ class Settings extends HookConsumerWidget {
     );
 
     return Align(
-      alignment: Alignment.centerLeft,
+      alignment: Alignment.center,
       child: ElevatedButton(
         style: style,
         onPressed: notifier.onTapSignoutButton,
@@ -213,7 +182,7 @@ class Settings extends HookConsumerWidget {
     );
   }
 
-  Widget _space() {
-    return const SizedBox(height: 16);
+  Widget _space([double? size]) {
+    return SizedBox(height: size ?? 16);
   }
 }

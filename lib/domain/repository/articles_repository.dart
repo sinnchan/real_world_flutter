@@ -187,7 +187,7 @@ class ArticlesRepository extends BaseRepository {
     return Author(
       username: e.username,
       image: e.image,
-      following: e.following,
+      following: e.following ?? false,
     );
   }
 }

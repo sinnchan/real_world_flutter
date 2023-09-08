@@ -107,7 +107,7 @@ class UserRepository extends BaseRepository {
   }
 
   Future<RepositoryResult<User>> updateUser({
-    String? pictureUrl,
+    String? imageUrl,
     String? username,
     String? bio,
     String? email,
@@ -126,7 +126,7 @@ class UserRepository extends BaseRepository {
         'password': password,
         'username': username,
         'bio': bio,
-        'iamge': pictureUrl,
+        'iamge': imageUrl,
       },
     };
 

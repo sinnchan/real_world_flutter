@@ -8,7 +8,7 @@ class Author with _$Author {
   const factory Author({
     required String username,
     String? bio,
-    required Uri image,
+    Uri? image,
     required bool following,
   }) = _Author;
 

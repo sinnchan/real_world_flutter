@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:real_world_flutter/main.dart';
 
 class ArticleAuthor extends StatelessWidget {
   const ArticleAuthor({
     super.key,
     required this.username,
-    required this.image,
+    this.image,
     required this.createdAt,
   });
 
-  final Uri image;
+  final Uri? image;
   final String username;
   final DateTime createdAt;
 
@@ -41,6 +42,12 @@ class ArticleAuthor extends StatelessWidget {
         child: Image.network(
           image.toString(),
           fit: BoxFit.contain,
+          errorBuilder: (context, _, __) {
+            return Container(
+              color: AppColors.lightGray,
+              child: const Icon(Icons.person, color: AppColors.grey),
+            );
+          },
         ),
       ),
     );

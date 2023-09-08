@@ -68,7 +68,7 @@ class SettingsStateNotifier extends StateNotifier<SettingsViewModel> {
     );
   }
 
-  void updatePictureUrl(String? value) {
+  void updateImageUrl(String? value) {
     state = state.copyWith(imageUrl: value);
   }
 
@@ -98,7 +98,7 @@ class SettingsStateNotifier extends StateNotifier<SettingsViewModel> {
   Future<void> onTapUpdateButton() async {
     state = state.copyWith(isLoading: true);
     final result = await _userRepository.updateUser(
-      pictureUrl: state.imageUrl,
+      imageUrl: state.imageUrl,
       username: state.username,
       bio: state.bio,
       email: state.email,

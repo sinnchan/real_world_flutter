@@ -82,6 +82,7 @@ class AppColors {
   static const deepMain = Color(0xFF377038);
   static const important = Color(0xFFDC3A40);
   static const white = Color(0xFFFFFFFF);
-  static const lightGray = Color(0xFFCCCCCC);
   static const grey = Colors.grey;
+  static const lightGray = Color(0xFFCCCCCC);
+  static const darkGrey = Color(0xFF333333);
 }

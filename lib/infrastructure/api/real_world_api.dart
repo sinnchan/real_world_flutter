@@ -9,7 +9,7 @@ import 'package:retrofit/retrofit.dart';
 
 part 'real_world_api.g.dart';
 
-@RestApi(baseUrl: 'https://api.realworld.io/api')
+@RestApi(baseUrl: 'http://sinnchan.com/api')
 abstract class RealWorldApi {
   static const _headers = {
     'accept': 'application/json',

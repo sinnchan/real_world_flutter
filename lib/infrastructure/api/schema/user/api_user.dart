@@ -9,7 +9,7 @@ class ApiUser with _$ApiUser {
     required String email,
     required String username,
     String? bio,
-    required Uri image,
+    Uri? image,
     required String token,
   }) = _ApiUser;
 
