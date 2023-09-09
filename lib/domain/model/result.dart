@@ -4,8 +4,8 @@ part 'result.freezed.dart';
 
 @freezed
 class Result<T, E> with _$Result<T, E> {
-  const factory Result.success(T data) = _ResultSuccess;
-  const factory Result.failed(E error) = _ResultFailed;
+  const factory Result.success(T data) = Success;
+  const factory Result.failed(E error) = Failed;
 }
 
 extension ResultMap<T1, E1> on Result<T1, E1> {

@@ -57,6 +57,11 @@ class ArticlesDataSource extends ChangeNotifier {
         offset: startingIndex,
         limit: itemsPerPage,
       ),
+      favorites: (username) => repository.getArticles(
+        favoritedUserName: username,
+        offset: startingIndex,
+        limit: itemsPerPage,
+      ),
       tag: (tag) => repository.getArticles(
         tag: tag,
         offset: startingIndex,

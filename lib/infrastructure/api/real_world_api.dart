@@ -10,7 +10,7 @@ import 'package:retrofit/retrofit.dart';
 
 part 'real_world_api.g.dart';
 
-@RestApi(baseUrl: 'http://sinnchan.com/api')
+@RestApi(baseUrl: 'http://api.realworld.io/api')
 abstract class RealWorldApi {
   static const _headers = {
     'accept': 'application/json',
@@ -57,20 +57,20 @@ abstract class RealWorldApi {
 
   @GET('/profiles/{username}')
   @Headers(_headers)
-  Future<ApiProfile> getProfile({
+  Future<ApiProfileResponse> getProfile({
     @Path('username') required String username,
   });
 
   @POST('/profiles/{username}/follow')
   @Headers(_headers)
-  Future<ApiProfile> postFollow({
+  Future<ApiProfileResponse> postFollow({
     @Path('username') required String username,
     @Header('Authorization') required ApiToken token,
   });
 
   @DELETE('/profiles/{username}/follow')
   @Headers(_headers)
-  Future<ApiProfile> deleteFollow({
+  Future<ApiProfileResponse> deleteFollow({
     @Path('username') required String username,
     @Header('Authorization') required ApiToken token,
   });

@@ -5,7 +5,7 @@ import 'package:real_world_flutter/presentation/ui/articles/organisms/articles_t
 import 'package:real_world_flutter/presentation/ui/auth/organisms/sign_in/sign_in.dart';
 import 'package:real_world_flutter/presentation/ui/auth/organisms/sign_up/sign_up.dart';
 import 'package:real_world_flutter/presentation/ui/main/main_page.dart';
-import 'package:real_world_flutter/presentation/ui/profile/organisms/profile.dart';
+import 'package:real_world_flutter/presentation/ui/profile/organisms/profile_contents.dart';
 import 'package:real_world_flutter/presentation/ui/settings/organisms/settings.dart';
 
 class AppNavigation {
@@ -66,7 +66,7 @@ class AppNavigation {
             path: '/my_profile',
             pageBuilder: (context, state) {
               return const NoTransitionPage(
-                child: Profile(),
+                child: ProfileContents(),
               );
             },
           ),

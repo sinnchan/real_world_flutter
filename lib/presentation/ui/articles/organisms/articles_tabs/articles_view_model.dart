@@ -19,8 +19,3 @@ class ArticlesTab with _$ArticlesTab {
   }) = _Tab;
 }
 
-enum ArticlesTabType {
-  your,
-  global,
-  tag,
-}

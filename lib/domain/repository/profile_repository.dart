@@ -37,7 +37,7 @@ class ProfileRepository extends BaseRepository {
 
     return result.successMap(
       transform: (data) {
-        return _toProfileFromApiResponse(data);
+        return _toProfileFromApiResponse(data.profile);
       },
     );
   }
@@ -61,7 +61,7 @@ class ProfileRepository extends BaseRepository {
 
     return result.successMap(
       transform: (data) {
-        return _toProfileFromApiResponse(data);
+        return _toProfileFromApiResponse(data.profile);
       },
     );
   }
@@ -85,7 +85,7 @@ class ProfileRepository extends BaseRepository {
 
     return result.successMap(
       transform: (data) {
-        return _toProfileFromApiResponse(data);
+        return _toProfileFromApiResponse(data.profile);
       },
     );
   }
@@ -93,7 +93,7 @@ class ProfileRepository extends BaseRepository {
   Profile _toProfileFromApiResponse(ApiProfile data) {
     return Profile(
       username: data.username,
-      bio: data.bio,
+      bio: data.bio ?? '',
       image: data.image,
       following: data.following,
     );
