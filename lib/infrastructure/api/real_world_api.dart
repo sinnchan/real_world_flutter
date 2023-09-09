@@ -4,6 +4,7 @@ import 'package:dio/dio.dart' hide Headers;
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:real_world_flutter/infrastructure/api/schema/articles/api_single_article_response.dart';
 import 'package:real_world_flutter/infrastructure/api/schema/articles/api_articles_response.dart';
+import 'package:real_world_flutter/infrastructure/api/schema/profile/api_profile.dart';
 import 'package:real_world_flutter/infrastructure/api/schema/user/api_user.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -50,6 +51,28 @@ abstract class RealWorldApi {
   Future<ApiUserResponse> putUser({
     @Header('Authorization') required ApiToken token,
     @Body() required Map<String, dynamic> body,
+  });
+
+  // profile
+
+  @GET('/profiles/{username}')
+  @Headers(_headers)
+  Future<ApiProfile> getProfile({
+    @Path('username') required String username,
+  });
+
+  @POST('/profiles/{username}/follow')
+  @Headers(_headers)
+  Future<ApiProfile> postFollow({
+    @Path('username') required String username,
+    @Header('Authorization') required ApiToken token,
+  });
+
+  @DELETE('/profiles/{username}/follow')
+  @Headers(_headers)
+  Future<ApiProfile> deleteFollow({
+    @Path('username') required String username,
+    @Header('Authorization') required ApiToken token,
   });
 
   // articles
