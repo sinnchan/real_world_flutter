@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:real_world_flutter/domain/util/logger.dart';
-import 'package:real_world_flutter/infrastructure/api/real_world_api.dart';
 import 'package:real_world_flutter/main.dart';
 import 'package:real_world_flutter/presentation/ui/main/main_notifier.dart';
 
@@ -38,11 +36,7 @@ class MainPage extends HookConsumerWidget {
       floatingActionButton: vm.isShowActionButton
           ? FloatingActionButton(
               child: const Icon(Icons.edit),
-              onPressed: () async {
-                final api = ref.watch(RealWorldApi.provider);
-                final result = await api.getArticles();
-                pLogger.d(result.toJson());
-              },
+              onPressed: () {},
             )
           : null,
       bottomNavigationBar: BottomNavigationBar(

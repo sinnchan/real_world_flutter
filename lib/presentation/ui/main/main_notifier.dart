@@ -68,7 +68,11 @@ class MainPageNotifier extends StateNotifier<MainViewModel> {
       case 0:
         goRouter.go('/');
       case 1:
-        goRouter.go('/login');
+        if (isLoggedIn) {
+          goRouter.go('/my_profile');
+        } else {
+          goRouter.go('/login');
+        }
       case 2:
         goRouter.go('/settings');
       default:
@@ -97,7 +101,7 @@ class MainPageNotifier extends StateNotifier<MainViewModel> {
           isShowActionButton: false,
           isShowTagButton: false,
         );
-      case '/profile':
+      case '/my_profile':
         state = state.copyWith(
           selectedTabIndex: 1,
           isShowActionButton: false,

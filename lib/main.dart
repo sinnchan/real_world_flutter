@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:real_world_flutter/presentation/navigation/app_navigation.dart';
+import 'package:real_world_flutter/presentation/ui/common/color/ext_color.dart';
 
 void main() {
   runApp(const ProviderScope(child: RealWorldApp()));
@@ -65,7 +66,7 @@ class RealWorldApp extends ConsumerWidget {
           }),
           overlayColor: MaterialStateProperty.resolveWith((states) {
             return states.contains(MaterialState.pressed)
-                ? AppColors.deepMain
+                ? AppColors.main.withDark()
                 : null;
           }),
           shape: MaterialStateProperty.all(RoundedRectangleBorder(
@@ -79,7 +80,6 @@ class RealWorldApp extends ConsumerWidget {
 
 class AppColors {
   static const main = Color(0xFF5CB85D);
-  static const deepMain = Color(0xFF377038);
   static const important = Color(0xFFDC3A40);
   static const white = Color(0xFFFFFFFF);
   static const grey = Colors.grey;
