@@ -123,6 +123,22 @@ abstract class RealWorldApi {
     @Path('slug') required String slug,
     @Header('Authorization') required ApiToken token,
   });
+
+  // favorites
+
+  @POST('/articles/{slug}/favorite')
+  @Headers(_headers)
+  Future<ApiSingleArticleResponse> postFavorite({
+    @Path('slug') required String slug,
+    @Header('Authorization') required ApiToken token,
+  });
+
+  @DELETE('/articles/{slug}/favorite')
+  @Headers(_headers)
+  Future<ApiSingleArticleResponse> deleteFavorite({
+    @Path('slug') required String slug,
+    @Header('Authorization') required ApiToken token,
+  });
 }
 
 class ApiToken {

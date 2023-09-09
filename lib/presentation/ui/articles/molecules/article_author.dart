@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:real_world_flutter/main.dart';
+import 'package:real_world_flutter/presentation/ui/common/color/ext_color.dart';
 
 class ArticleAuthor extends StatelessWidget {
   const ArticleAuthor({
@@ -7,29 +8,36 @@ class ArticleAuthor extends StatelessWidget {
     required this.username,
     this.image,
     required this.createdAt,
+    this.onTap,
   });
 
   final Uri? image;
   final String username;
   final DateTime createdAt;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 40,
-      child: Row(
-        children: [
-          _icon(),
-          const SizedBox(width: 10),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _username(context),
-              _date(),
-            ],
-          )
-        ],
+    return InkWell(
+      onTap: onTap,
+      splashColor: AppColors.main.withLight(0.4),
+      borderRadius: BorderRadius.circular(10),
+      child: SizedBox(
+        height: 40,
+        child: Row(
+          children: [
+            _icon(),
+            const SizedBox(width: 10),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _username(context),
+                _date(),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

@@ -1,39 +1,68 @@
 import 'package:flutter/material.dart';
+import 'package:real_world_flutter/main.dart';
 
 class FavoriteCounter extends StatelessWidget {
   const FavoriteCounter({
     super.key,
+    this.favorited = false,
     required this.favoritesCount,
+    this.onTap,
   });
 
+  final bool favorited;
   final int favoritesCount;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 40,
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: Theme.of(context).primaryColor,
-        ),
-        borderRadius: BorderRadius.circular(4),
-      ),
+    return ElevatedButton(
+      onPressed: onTap,
+      style: favorited ? null : _normalStyle,
       child: Row(
         children: [
-          Icon(
+          const Icon(
             Icons.favorite,
             size: 16,
-            color: Theme.of(context).primaryColor,
           ),
           const SizedBox(width: 2),
-          Text(
-            '$favoritesCount',
-            style: TextStyle(
-              color: Theme.of(context).primaryColor,
-            ),
-          ),
+          Text(favoritesCount.toString()),
         ],
+      ),
+    );
+  }
+
+  ButtonStyle get _normalStyle {
+    return ButtonStyle(
+      surfaceTintColor: const MaterialStatePropertyAll(Colors.transparent),
+      backgroundColor: MaterialStateProperty.resolveWith((states) {
+        if (states.contains(MaterialState.disabled)) {
+          return AppColors.lightGray;
+        } else if (states.contains(MaterialState.pressed)) {
+          return AppColors.main;
+        } else {
+          return Colors.transparent;
+        }
+      }),
+      foregroundColor: MaterialStateProperty.resolveWith((states) {
+        if (states.contains(MaterialState.disabled)) {
+          return AppColors.grey;
+        } else if (states.contains(MaterialState.pressed)) {
+          return AppColors.white;
+        } else {
+          return AppColors.main;
+        }
+      }),
+      shadowColor: const MaterialStatePropertyAll(Colors.transparent),
+      overlayColor: MaterialStateProperty.resolveWith((states) {
+        return states.contains(MaterialState.pressed)
+            ? AppColors.main
+            : Colors.transparent;
+      }),
+      shape: MaterialStateProperty.all(RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(4),
+      )),
+      side: const MaterialStatePropertyAll(
+        BorderSide(color: AppColors.main),
       ),
     );
   }

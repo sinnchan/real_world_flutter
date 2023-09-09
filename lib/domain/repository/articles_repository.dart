@@ -154,6 +154,36 @@ class ArticlesRepository extends BaseRepository {
     });
   }
 
+  Future<RepositoryResult<Article>> favorite({
+    required String slug,
+    required bool favorite,
+  }) async {
+    sLogger.i('ArticlesRepository.favorite');
+
+    final token = await secStorage.read(SecureStorageKey.token);
+    if (token == null) {
+      return const Result.failed(RepositoryFailType.unauthorized());
+    }
+
+    final result = await apiResultWrapper(() {
+      if (favorite) {
+        return api.postFavorite(
+          slug: slug,
+          token: ApiToken(token),
+        );
+      } else {
+        return api.deleteFavorite(
+          slug: slug,
+          token: ApiToken(token),
+        );
+      }
+    });
+
+    return result.successMap(
+      transform: (data) => _toArticleFromApiResponse(data),
+    );
+  }
+
   Article _toArticleFromApiResponse(ApiSingleArticleResponse data) {
     return Article(
       slug: data.article.slug,

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:real_world_flutter/presentation/ui/articles/organisms/articles_tabs/article_list_tabs.dart';
 import 'package:real_world_flutter/presentation/ui/auth/organisms/sign_in/sign_in.dart';
 import 'package:real_world_flutter/presentation/ui/auth/organisms/sign_up/sign_up.dart';
+import 'package:real_world_flutter/presentation/ui/feeds/organisms/feeds_tab/feeds_list_tabs.dart';
 import 'package:real_world_flutter/presentation/ui/main/main_page.dart';
+import 'package:real_world_flutter/presentation/ui/main/sub_page.dart';
 import 'package:real_world_flutter/presentation/ui/profile/organisms/profile_contents.dart';
 import 'package:real_world_flutter/presentation/ui/settings/organisms/settings.dart';
 
@@ -34,7 +35,7 @@ class AppNavigation {
             path: '/',
             pageBuilder: (context, state) {
               return const NoTransitionPage(
-                child: ArticleListTabs(),
+                child: FeedsListTabs(),
               );
             },
           ),
@@ -74,6 +75,7 @@ class AppNavigation {
       ),
       GoRoute(
         path: '/profile/:username',
+        parentNavigatorKey: _rootNavKey,
         redirect: (context, state) {
           final profileUser = state.pathParameters['username'];
           if (profileUser == null) {
@@ -90,6 +92,7 @@ class AppNavigation {
       ),
       GoRoute(
         path: '/article/:slug',
+        parentNavigatorKey: _rootNavKey,
         redirect: (context, state) {
           final profileUser = state.pathParameters['slug'];
           if (profileUser == null) {

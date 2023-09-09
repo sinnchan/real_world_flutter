@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:real_world_flutter/domain/model/article.dart';
@@ -15,6 +16,7 @@ class ArticlesDataSource extends ChangeNotifier {
   final Set<int> _pagesBeingFetched = {};
   int? itemCount;
   bool _isDisposed = false;
+  String? errorMessage;
 
   ArticlesDataSource({
     required this.type,
@@ -40,6 +42,43 @@ class ArticlesDataSource extends ChangeNotifier {
     _fetchPage(startingIndex);
 
     return const ArticleListItemType.isLoading();
+  }
+
+  void reload() {
+    if (_isDisposed) {
+      return;
+    }
+    itemCount = null;
+    _pages.clear();
+    errorMessage = null;
+    notifyListeners();
+  }
+
+  void updateArticle(Article newArticle) {
+    for (final entry in _pages.entries) {
+      final match = entry.value.items.firstWhereOrNull((item) {
+        return item.whenOrNull(data: (d) => d)?.slug == newArticle.slug;
+      });
+
+      if (match != null) {
+        final mutableItems = entry.value.items.toList();
+        final index = mutableItems.indexOf(match);
+        final newItem = ArticleListItemType.data(newArticle);
+
+        _pages[entry.key] = entry.value.copyWith(
+          items: mutableItems
+            ..removeAt(index)
+            ..insert(index, newItem),
+        );
+
+        if (!_isDisposed) {
+          Future(() {
+            notifyListeners();
+          });
+        }
+        break;
+      }
+    }
   }
 
   Future<void> _fetchPage(int startingIndex) async {
@@ -88,15 +127,15 @@ class ArticlesDataSource extends ChangeNotifier {
           startingIndex: startingIndex,
         );
         _pruneCache(startingIndex);
-
-        if (!_isDisposed) {
-          notifyListeners();
-        }
       },
       failed: (err) {
-        // noop
+        errorMessage = 'Fetch error...\n${err.message}';
       },
     );
+
+    if (!_isDisposed) {
+      notifyListeners();
+    }
   }
 
   void _pruneCache(int currentStartingIndex) {
