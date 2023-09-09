@@ -1,19 +1,19 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:real_world_flutter/presentation/data_source/articles_data_source.dart';
 
-part 'articles_view_model.freezed.dart';
+part 'feeds_view_model.freezed.dart';
 
 @freezed
-class ArticlesOrganizmViewModel with _$ArticlesOrganizmViewModel {
-  const factory ArticlesOrganizmViewModel({
+class FeedsViewModel with _$FeedsViewModel {
+  const factory FeedsViewModel({
     required bool isLoading,
-    required List<ArticlesTab> tabs,
+    required List<FeedsTab> tabs,
   }) = _ViewModel;
 }
 
 @freezed
-class ArticlesTab with _$ArticlesTab {
-  const factory ArticlesTab({
+class FeedsTab with _$FeedsTab {
+  const factory FeedsTab({
     required String name,
     required ArticlesDataSource dataSource,
   }) = _Tab;

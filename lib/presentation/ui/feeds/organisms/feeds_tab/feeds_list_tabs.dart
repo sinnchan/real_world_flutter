@@ -2,25 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:real_world_flutter/presentation/ui/articles/organisms/articles_list.dart';
-import 'package:real_world_flutter/presentation/ui/articles/organisms/articles_tabs/articles_state_notifier.dart';
-import 'package:real_world_flutter/presentation/ui/articles/organisms/articles_tabs/articles_view_model.dart';
+import 'package:real_world_flutter/presentation/ui/feeds/organisms/feeds_tab/feeds_state_notifier.dart';
 import 'package:real_world_flutter/presentation/ui/common/molecules/loading_overlay.dart';
+import 'package:real_world_flutter/presentation/ui/feeds/organisms/feeds_tab/feeds_view_model.dart';
 
-class ArticleListTabs extends StatefulHookConsumerWidget {
-  const ArticleListTabs({super.key});
+class FeedsListTabs extends StatefulHookConsumerWidget {
+  const FeedsListTabs({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() {
-    return _ArticleListState();
+    return _FeedsListState();
   }
 }
 
-class _ArticleListState extends ConsumerState<ArticleListTabs>
+class _FeedsListState extends ConsumerState<FeedsListTabs>
     with TickerProviderStateMixin {
   late TabController _tabController;
 
-  ArticlesOrganizmViewModel get _vm {
-    return ref.watch(ArticlesStateNotifier.provider);
+  FeedsViewModel get _vm {
+    return ref.watch(FeedsStateNotifier.provider);
   }
 
   @override

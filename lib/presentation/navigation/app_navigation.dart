@@ -72,32 +72,40 @@ class AppNavigation {
           ),
         ],
       ),
-      // GoRoute(
-      //   path: '/profile',
-      //   redirect: (context, state) {
-      //     sLogger.w('profile page requires username.');
-      //     return '/';
-      //   },
-      //   routes: [
-      //     GoRoute(
-      //       path: ':username',
-      //       redirect: (context, state) {
-      //         final profileUser = state.pathParameters['username'];
-      //         if (profileUser == null) {
-      //           return '/';
-      //         }
-      //         return null;
-      //       },
-      //       pageBuilder: (context, state) {
-      //         return const NoTransitionPage(child: Profile());
-      //       },
-      //       // routes: [
-      //       //   GoRoute(path: 'favorites'),
-      //       // ],
-      //     ),
-      //   ],
-      // ),
-      // GoRoute(path: '/article/:article_slug'),
+      GoRoute(
+        path: '/profile/:username',
+        redirect: (context, state) {
+          final profileUser = state.pathParameters['username'];
+          if (profileUser == null) {
+            return '/';
+          }
+          return null;
+        },
+        pageBuilder: (context, state) {
+          final profileUser = state.pathParameters['username'];
+          return _pageAnimation(
+            ProfileContents(username: profileUser),
+          );
+        },
+      ),
+      GoRoute(
+        path: '/article/:slug',
+        redirect: (context, state) {
+          final profileUser = state.pathParameters['slug'];
+          if (profileUser == null) {
+            return '/';
+          }
+          return null;
+        },
+        pageBuilder: (context, state) {
+          final slug = state.pathParameters['slug'];
+          return _pageAnimation(
+            Center(
+              child: Text(slug.toString()),
+            ),
+          );
+        },
+      ),
       // GoRoute(
       //   path: '/editor',
       //   routes: [
@@ -106,4 +114,24 @@ class AppNavigation {
       // ),
     ],
   );
+
+  CustomTransitionPage<void> _pageAnimation(Widget page) {
+    return CustomTransitionPage(
+      child: page,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        return FadeTransition(
+          opacity: animation,
+          child: SlideTransition(
+            position: animation.drive(
+              Tween(
+                begin: const Offset(1, 0),
+                end: Offset.zero,
+              ).chain(CurveTween(curve: Curves.easeIn)),
+            ),
+            child: SubPage(child: child),
+          ),
+        );
+      },
+    );
+  }
 }
