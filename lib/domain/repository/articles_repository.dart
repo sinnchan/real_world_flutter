@@ -1,4 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:kotlin_scope_function/kotlin_scope_function.dart';
 import 'package:real_world_flutter/domain/model/article.dart';
 import 'package:real_world_flutter/domain/model/author.dart';
 import 'package:real_world_flutter/domain/model/result.dart';
@@ -63,6 +64,7 @@ class ArticlesRepository extends BaseRepository {
   }) async {
     sLogger.i('ArticlesRepository.getArticles');
 
+    final token = await secStorage.read(SecureStorageKey.token);
     final result = await apiResultWrapper(() {
       return api.getArticles(
         tag: tag,
@@ -70,6 +72,7 @@ class ArticlesRepository extends BaseRepository {
         favoritedUserName: favoritedUserName,
         offset: offset,
         limit: limit,
+        token: token?.let((it) => ApiToken(it)),
       );
     });
 

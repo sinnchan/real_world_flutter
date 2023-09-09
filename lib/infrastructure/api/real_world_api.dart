@@ -10,7 +10,7 @@ import 'package:retrofit/retrofit.dart';
 
 part 'real_world_api.g.dart';
 
-@RestApi(baseUrl: 'http://api.realworld.io/api')
+@RestApi(baseUrl: 'https://api.realworld.io/api')
 abstract class RealWorldApi {
   static const _headers = {
     'accept': 'application/json',
@@ -93,6 +93,7 @@ abstract class RealWorldApi {
     @Query('favorited') String? favoritedUserName,
     @Query('offset') int? offset,
     @Query('limit') int? limit,
+    @Header('Authorization') ApiToken? token,
   });
 
   @POST('/articles')

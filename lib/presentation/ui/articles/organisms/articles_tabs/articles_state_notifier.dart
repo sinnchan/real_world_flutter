@@ -49,7 +49,7 @@ class ArticlesStateNotifier extends StateNotifier<_Vm> {
       final userTab = ArticlesTab(
         name: 'Your Feed',
         dataSource: ArticlesDataSource(
-          type: const ArticlesDataSourceType.myFeed(),
+          type: const ArticlesDataSourceType.yourFeed(),
           repository: articlesRepository,
         ),
       );

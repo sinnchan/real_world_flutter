@@ -49,11 +49,16 @@ class ArticlesDataSource extends ChangeNotifier {
 
     _pagesBeingFetched.add(startingIndex);
     final result = await type.when(
-      myFeed: () => repository.getFeeds(
+      yourFeed: () => repository.getFeeds(
         offset: startingIndex,
         limit: itemsPerPage,
       ),
       global: () => repository.getArticles(
+        offset: startingIndex,
+        limit: itemsPerPage,
+      ),
+      myArticles: (authorName) => repository.getArticles(
+        authorName: authorName,
         offset: startingIndex,
         limit: itemsPerPage,
       ),
