@@ -52,9 +52,7 @@ class ArticlesList extends HookConsumerWidget {
             return ArticleListItem(
               data: data,
               isLastItem: source.itemCount != index + 1,
-              onUpdateArticle: (artile) {
-                source.updateArticle(artile);
-              },
+              onUpdateArticle: source.updateArticle,
             );
           },
         );

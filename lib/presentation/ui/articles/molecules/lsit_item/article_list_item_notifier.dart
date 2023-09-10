@@ -5,6 +5,7 @@ import 'package:real_world_flutter/domain/repository/articles_repository.dart';
 import 'package:real_world_flutter/domain/util/logger.dart';
 import 'package:real_world_flutter/presentation/navigation/app_navigation.dart';
 import 'package:real_world_flutter/presentation/ui/articles/molecules/lsit_item/article_list_item_view_model.dart';
+import 'package:state_notifier/state_notifier.dart';
 
 typedef _Vm = ArticleListItemViewModel;
 typedef _Notifier = ArticleListItemNotifier;
@@ -14,6 +15,7 @@ typedef _Provider
 class ArticleListItemNotifier extends StateNotifier<_Vm> {
   final ArticlesRepository _articlesRepository;
   final GoRouter _goRouter;
+  void Function(Article)? updateArticleLitener;
   var _isDisposed = false;
 
   ArticleListItemNotifier(
@@ -48,11 +50,9 @@ class ArticleListItemNotifier extends StateNotifier<_Vm> {
       favorite: !state.artile.favorited,
     );
 
-    if (_isDisposed) {
-      return;
-    }
-    state = result.when(
+    final newState = result.when(
       success: (article) {
+        updateArticleLitener?.call(article);
         return _Vm(
           artile: article,
           isLockedFavoriteButton: false,
@@ -63,6 +63,10 @@ class ArticleListItemNotifier extends StateNotifier<_Vm> {
         return state.copyWith(isLockedFavoriteButton: false);
       },
     );
+
+    if (!_isDisposed) {
+      state = newState;
+    }
   }
 
   void onTapContents() {}

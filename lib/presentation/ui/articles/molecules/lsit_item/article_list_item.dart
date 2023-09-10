@@ -27,9 +27,14 @@ class ArticleListItem extends HookConsumerWidget {
     final vm = ref.watch(provider);
     final notifier = ref.watch(provider.notifier);
 
-    if (data != vm.artile) {
-      onUpdateArticle?.call(vm.artile);
-    }
+    // setup listener
+    useEffect(
+      () {
+        notifier.updateArticleLitener = onUpdateArticle;
+        return null;
+      },
+      [notifier],
+    );
 
     return Padding(
       padding: const EdgeInsets.symmetric(
