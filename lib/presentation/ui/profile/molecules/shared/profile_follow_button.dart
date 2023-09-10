@@ -4,15 +4,22 @@ import 'package:real_world_flutter/main.dart';
 import 'package:real_world_flutter/presentation/ui/profile/molecules/shared/profile_follow_notifier.dart';
 
 class ProfileFollowButton extends HookConsumerWidget {
-  final String username;
+  final String? username;
 
   const ProfileFollowButton({
     super.key,
-    required this.username,
+    this.username,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final username = this.username;
+    if (username == null) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+
     final followProvider = ProfileFollowNotifier.provider(username);
     final followNotifier = ref.watch(followProvider.notifier);
     final followState = ref.watch(followProvider);
@@ -21,7 +28,7 @@ class ProfileFollowButton extends HookConsumerWidget {
       onPressed:
           followState.lockFollowButton ? null : followNotifier.onTapFollow,
       style: followState.follwoing ? _selectedStyle : _normalStyle,
-      child: Text(followState.username),
+      child: Text(followState.follwoing ? 'Following' : 'Follow'),
     );
   }
 

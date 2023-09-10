@@ -6,6 +6,7 @@ import 'package:real_world_flutter/presentation/ui/articles/molecules/favorite_b
 import 'package:real_world_flutter/presentation/ui/articles/molecules/shared/shared_article_notifier.dart';
 import 'package:real_world_flutter/presentation/ui/articles/molecules/shared/shared_article_view_model.dart';
 import 'package:real_world_flutter/presentation/ui/articles/organisms/description/article_description_notifier.dart';
+import 'package:real_world_flutter/presentation/ui/articles/organisms/description/article_description_view_model.dart';
 import 'package:real_world_flutter/presentation/ui/profile/molecules/shared/profile_follow_button.dart';
 
 class ArticleDescription extends HookConsumerWidget {
@@ -18,7 +19,10 @@ class ArticleDescription extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final provider = ArticleDescriptionNotifier.provider(slug);
+    final notifier = ref.watch(provider.notifier);
     final vm = ref.watch(provider);
+
+    _ifNeedShowDialog(context, vm, notifier);
 
     final baseArticle = vm.article;
     if (baseArticle == null) {
@@ -27,12 +31,14 @@ class ArticleDescription extends HookConsumerWidget {
       );
     }
 
-    final sharedArticleProvider = SharedArticleNotifier.provider(baseArticle);
+    // for watch other changes
+    final sharedArticleProvider = SharedArticleNotifier.provider(slug);
     final sharedArticleNotifier = ref.watch(sharedArticleProvider.notifier);
     final sharedArticle = ref.watch(sharedArticleProvider);
 
     return SingleChildScrollView(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           _header(sharedArticleNotifier, sharedArticle),
           Padding(
@@ -40,7 +46,10 @@ class ArticleDescription extends HookConsumerWidget {
               vertical: 20,
               horizontal: 30,
             ),
-            child: Text(sharedArticle.artile.body),
+            child: Text(
+              sharedArticle.artile?.body ?? '---',
+              textAlign: TextAlign.left,
+            ),
           ),
         ],
       ),
@@ -60,7 +69,7 @@ class ArticleDescription extends HookConsumerWidget {
       child: Column(
         children: [
           Text(
-            sharedArticle.artile.title,
+            sharedArticle.artile?.title ?? '---',
             style: const TextStyle(
               color: AppColors.white,
               fontSize: 20,
@@ -69,8 +78,8 @@ class ArticleDescription extends HookConsumerWidget {
           ),
           const SizedBox(height: 20),
           ArticleAuthor(
-            username: sharedArticle.artile.author.username,
-            createdAt: sharedArticle.artile.createdAt,
+            username: sharedArticle.artile?.author.username ?? '---',
+            createdAt: sharedArticle.artile?.createdAt,
             onTap: sharedArticle.isLockedFavoriteButton
                 ? null
                 : sharedArticleNotifier.onTapAuthorInfo,
@@ -81,12 +90,12 @@ class ArticleDescription extends HookConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               ProfileFollowButton(
-                username: sharedArticle.artile.author.username,
+                username: sharedArticle.artile?.author.username,
               ),
               const SizedBox(width: 20),
               FavoriteButton(
-                favoritesCount: sharedArticle.artile.favoritesCount,
-                favorited: sharedArticle.artile.favorited,
+                favoritesCount: sharedArticle.artile?.favoritesCount ?? 0,
+                favorited: sharedArticle.artile?.favorited ?? false,
                 onTap: sharedArticle.isLockedFavoriteButton
                     ? null
                     : sharedArticleNotifier.onTapFavoriteButton,
@@ -96,5 +105,36 @@ class ArticleDescription extends HookConsumerWidget {
         ],
       ),
     );
+  }
+
+  void _ifNeedShowDialog(
+    BuildContext context,
+    ArticleDescriptionViewModel vm,
+    ArticleDescriptionNotifier notifier,
+  ) {
+    final error = vm.errorMessage;
+    if (error != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (context) {
+            return AlertDialog(
+              title: const Text('Error'),
+              content: Text(error),
+              actions: [
+                ElevatedButton(
+                  onPressed: () {
+                    notifier.onTapErorDialogOk();
+                    Navigator.pop(context);
+                  },
+                  child: const Text('OK'),
+                ),
+              ],
+            );
+          },
+        );
+      });
+    }
   }
 }

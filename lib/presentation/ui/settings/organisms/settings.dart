@@ -58,7 +58,6 @@ class Settings extends HookConsumerWidget {
                 decoration: const InputDecoration(
                   hintText: 'URL of profile picture',
                 ),
-                onChanged: notifier.updateImageUrl,
               ),
               _space(),
               TextFormField(
@@ -68,7 +67,6 @@ class Settings extends HookConsumerWidget {
                 decoration: const InputDecoration(
                   hintText: 'Username',
                 ),
-                onChanged: notifier.updateUsername,
               ),
               _space(),
               SizedBox(
@@ -83,7 +81,6 @@ class Settings extends HookConsumerWidget {
                   decoration: const InputDecoration(
                     hintText: 'Short bio about you',
                   ),
-                  onChanged: notifier.updateBio,
                 ),
               ),
               _space(),
@@ -94,7 +91,6 @@ class Settings extends HookConsumerWidget {
                 decoration: const InputDecoration(
                   hintText: 'Email',
                 ),
-                onChanged: notifier.updateEmail,
               ),
               _space(),
               TextFormField(
@@ -105,13 +101,20 @@ class Settings extends HookConsumerWidget {
                 decoration: const InputDecoration(
                   hintText: 'New Password',
                 ),
-                onChanged: notifier.updatePassword,
               ),
               _space(),
               Align(
                 alignment: Alignment.centerRight,
                 child: ElevatedButton(
-                  onPressed: notifier.onTapUpdateButton,
+                  onPressed: () {
+                    notifier.onTapUpdateButton(
+                      imageUrl: imageUrlTextController.text,
+                      username: usernameTextController.text,
+                      bio: bioTextController.text,
+                      email: emailTextController.text,
+                      password: passwordTextController.text,
+                    );
+                  },
                   child: const Text('Update Settings'),
                 ),
               ),

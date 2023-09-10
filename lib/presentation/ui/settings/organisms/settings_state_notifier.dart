@@ -68,26 +68,6 @@ class SettingsStateNotifier extends StateNotifier<SettingsViewModel> {
     );
   }
 
-  void updateImageUrl(String? value) {
-    state = state.copyWith(imageUrl: value);
-  }
-
-  void updateUsername(String? value) {
-    state = state.copyWith(username: value);
-  }
-
-  void updateBio(String? value) {
-    state = state.copyWith(bio: value);
-  }
-
-  void updateEmail(String? value) {
-    state = state.copyWith(email: value);
-  }
-
-  void updatePassword(String? value) {
-    state = state.copyWith(password: value);
-  }
-
   void onTapErrorDialogOk() {
     state = state.copyWith(errorMessage: null);
     if (!_isInitialized) {
@@ -95,14 +75,20 @@ class SettingsStateNotifier extends StateNotifier<SettingsViewModel> {
     }
   }
 
-  Future<void> onTapUpdateButton() async {
+  Future<void> onTapUpdateButton({
+    String? imageUrl,
+    String? username,
+    String? bio,
+    String? email,
+    String? password,
+  }) async {
     state = state.copyWith(isLoading: true);
     final result = await _userRepository.updateUser(
-      imageUrl: state.imageUrl,
-      username: state.username,
-      bio: state.bio,
-      email: state.email,
-      password: state.password,
+      imageUrl: imageUrl,
+      username: username,
+      bio: bio,
+      email: email,
+      password: password,
     );
 
     if (_isDisposed) {

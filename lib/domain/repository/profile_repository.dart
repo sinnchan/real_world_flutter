@@ -31,8 +31,16 @@ class ProfileRepository extends BaseRepository {
   }) async {
     sLogger.i('ProfileRepository.getProfile()');
 
+    final token = await secStorage.read(SecureStorageKey.token);
+    if (token == null) {
+      return const Result.failed(RepositoryFailType.unauthorized());
+    }
+
     final result = await apiResultWrapper(() {
-      return api.getProfile(username: username);
+      return api.getProfile(
+        username: username,
+        token: ApiToken(token),
+      );
     });
 
     return result.successMap(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:real_world_flutter/main.dart';
 import 'package:real_world_flutter/presentation/ui/main/main_notifier.dart';
 
 class MainPage extends HookConsumerWidget {

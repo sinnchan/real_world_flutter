@@ -23,9 +23,11 @@ class ArticleListItem extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final provider = SharedArticleNotifier.provider(data);
+    final provider = SharedArticleNotifier.provider(data.slug);
     final vm = ref.watch(provider);
     final notifier = ref.watch(provider.notifier);
+
+    notifier.updateArticle(data);
 
     // setup listener
     useEffect(
@@ -63,14 +65,14 @@ class ArticleListItem extends HookConsumerWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         ArticleAuthor(
-          username: vm.artile.author.username,
-          image: vm.artile.author.image,
-          createdAt: vm.artile.createdAt,
+          username: vm.artile?.author.username ?? '---',
+          image: vm.artile?.author.image,
+          createdAt: vm.artile?.createdAt,
           onTap: notifier.onTapAuthorInfo,
         ),
         FavoriteButton(
-          favoritesCount: vm.artile.favoritesCount,
-          favorited: vm.artile.favorited,
+          favoritesCount: vm.artile?.favoritesCount ?? 0,
+          favorited: vm.artile?.favorited ?? false,
           onTap:
               vm.isLockedFavoriteButton ? null : notifier.onTapFavoriteButton,
         ),

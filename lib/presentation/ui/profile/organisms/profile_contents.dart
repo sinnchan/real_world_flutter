@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:kotlin_scope_function/kotlin_scope_function.dart';
 import 'package:real_world_flutter/domain/model/profile.dart';
 import 'package:real_world_flutter/main.dart';
 import 'package:real_world_flutter/presentation/data_source/articles_data_source.dart';
 import 'package:real_world_flutter/presentation/ui/articles/organisms/articles_list.dart';
 import 'package:real_world_flutter/presentation/ui/common/color/ext_color.dart';
+import 'package:real_world_flutter/presentation/ui/profile/molecules/shared/profile_follow_button.dart';
 import 'package:real_world_flutter/presentation/ui/profile/organisms/profile_contents_notifier.dart';
 import 'package:real_world_flutter/presentation/ui/profile/organisms/profile_info.dart';
 
@@ -74,8 +76,20 @@ class ProfileContents extends HookConsumerWidget {
         [
           Container(
             color: AppColors.lightGray.withLight(0.7),
-            child: Center(
-              child: ProfileInfo(profile: profile),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ProfileInfo(profile: profile),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: profile?.let((it) {
+                    return Padding(
+                      padding: const EdgeInsets.only(right: 30, bottom: 10),
+                      child: ProfileFollowButton(username: it.username),
+                    );
+                  }),
+                )
+              ],
             ),
           ),
         ],

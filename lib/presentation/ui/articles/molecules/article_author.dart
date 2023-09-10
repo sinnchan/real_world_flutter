@@ -7,14 +7,14 @@ class ArticleAuthor extends StatelessWidget {
     super.key,
     required this.username,
     this.image,
-    required this.createdAt,
+    this.createdAt,
     this.onTap,
     this.textColor,
   });
 
   final Uri? image;
   final String username;
-  final DateTime createdAt;
+  final DateTime? createdAt;
   final void Function()? onTap;
   final Color? textColor;
 

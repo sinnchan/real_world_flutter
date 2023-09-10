@@ -20,7 +20,7 @@ class ProfileFollowNotifier extends StateNotifier<_Vm> {
     return _Notifier(
       _Vm(username: username),
       ref.watch(ProfileRepository.provider),
-    );
+    )..loadState();
   });
 
   @override

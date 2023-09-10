@@ -59,6 +59,7 @@ abstract class RealWorldApi {
   @Headers(_headers)
   Future<ApiProfileResponse> getProfile({
     @Path('username') required String username,
+    @Header('Authorization') required ApiToken token,
   });
 
   @POST('/profiles/{username}/follow')
