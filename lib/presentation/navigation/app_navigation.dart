@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:real_world_flutter/presentation/ui/articles/organisms/description/article_description.dart';
+import 'package:real_world_flutter/presentation/ui/articles/organisms/edit/article_edit.dart';
 import 'package:real_world_flutter/presentation/ui/auth/organisms/sign_in/sign_in.dart';
 import 'package:real_world_flutter/presentation/ui/auth/organisms/sign_up/sign_up.dart';
 import 'package:real_world_flutter/presentation/ui/feeds/organisms/feeds_tab/feeds_list_tabs.dart';
@@ -108,12 +109,15 @@ class AppNavigation {
           );
         },
       ),
-      // GoRoute(
-      //   path: '/editor',
-      //   routes: [
-      //     GoRoute(path: ':article_slug'),
-      //   ],
-      // ),
+      GoRoute(
+        path: '/editor',
+        parentNavigatorKey: _rootNavKey,
+        pageBuilder: (context, state) {
+          return _pageAnimation(
+            const ArticleEdit(),
+          );
+        },
+      ),
     ],
   );
 

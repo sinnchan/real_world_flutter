@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:real_world_flutter/main.dart';
 import 'package:real_world_flutter/presentation/ui/articles/molecules/article_author.dart';
@@ -19,7 +18,6 @@ class ArticleDescription extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final provider = ArticleDescriptionNotifier.provider(slug);
-    final notifier = ref.watch(provider.notifier);
     final vm = ref.watch(provider);
 
     final baseArticle = vm.article;

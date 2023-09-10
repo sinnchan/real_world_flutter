@@ -121,4 +121,8 @@ class MainPageNotifier extends StateNotifier<MainViewModel> {
         );
     }
   }
+
+  void onTapEditButton() {
+    goRouter.push('/editor');
+  }
 }

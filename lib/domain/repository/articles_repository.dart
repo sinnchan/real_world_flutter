@@ -98,6 +98,40 @@ class ArticlesRepository extends BaseRepository {
     );
   }
 
+  Future<RepositoryResult<Article>> postArticle({
+    required String title,
+    required String description,
+    required String body,
+    required List<String> tags,
+  }) async {
+    sLogger.i('ArticlesRepository.postArticle');
+
+    final token = await secStorage.read(SecureStorageKey.token);
+    if (token == null) {
+      return const Result.failed(RepositoryFailType.unauthorized());
+    }
+
+    final requestBody = {
+      'article': {
+        'title': title,
+        'description': description,
+        'body': body,
+        'tagList': tags,
+      },
+    };
+
+    final result = await apiResultWrapper(() {
+      return api.postArticle(
+        body: requestBody,
+        token: ApiToken(token),
+      );
+    });
+
+    return result.successMap(
+      transform: (data) => _toArticleFromApiResponse(data),
+    );
+  }
+
   Future<RepositoryResult<Article>> putArticle({
     required String slug,
     String? title,
