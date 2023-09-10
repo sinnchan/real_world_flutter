@@ -70,4 +70,22 @@ class FeedsStateNotifier extends StateNotifier<_Vm> {
       tabs: tabs,
     );
   }
+
+  void addTagTab(String tag) {
+    final tagTab = FeedsTab(
+      name: tag,
+      dataSource: ArticlesDataSource(
+        type: ArticlesDataSourceType.tag(tag: tag),
+        repository: articlesRepository,
+      ),
+    );
+    var mutableTabs = state.tabs.toList();
+    if (mutableTabs.length > 2) {
+      mutableTabs = mutableTabs.take(2).toList();
+    }
+    state = state.copyWith(
+      isLoading: false,
+      tabs: [...mutableTabs, tagTab],
+    );
+  }
 }

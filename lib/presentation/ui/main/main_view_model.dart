@@ -9,5 +9,6 @@ class MainViewModel with _$MainViewModel {
     @Default(false) bool isShowSettingBottomTab,
     @Default(false) bool isShowActionButton,
     @Default(true) bool isShowTagButton,
+    @Default([]) List<String> tags,
   }) = _MainViewModel;
 }

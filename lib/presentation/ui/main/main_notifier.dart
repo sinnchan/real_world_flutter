@@ -1,8 +1,10 @@
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:real_world_flutter/domain/repository/tag_repository.dart';
 import 'package:real_world_flutter/domain/repository/user_repository.dart';
 import 'package:real_world_flutter/domain/util/logger.dart';
 import 'package:real_world_flutter/presentation/navigation/app_navigation.dart';
+import 'package:real_world_flutter/presentation/ui/feeds/organisms/feeds_tab/feeds_state_notifier.dart';
 import 'package:real_world_flutter/presentation/ui/main/main_view_model.dart';
 import 'package:rxdart/utils.dart';
 
@@ -13,13 +15,18 @@ typedef _Provider = AutoDisposeStateNotifierProvider<_Notifier, _Vm>;
 class MainPageNotifier extends StateNotifier<MainViewModel> {
   final GoRouter goRouter;
   final UserRepository userRepository;
+  final TagRepository tagRepository;
+  final FeedsStateNotifier feedsNotifier;
   final subscriptions = CompositeSubscription();
   var isLoggedIn = false;
+  var _isDisposed = false;
 
   MainPageNotifier(
     super.state, {
     required this.goRouter,
     required this.userRepository,
+    required this.tagRepository,
+    required this.feedsNotifier,
   });
 
   static final provider = _Provider((ref) {
@@ -29,6 +36,8 @@ class MainPageNotifier extends StateNotifier<MainViewModel> {
       const _Vm(),
       goRouter: goRouter,
       userRepository: ref.watch(UserRepository.provider),
+      tagRepository: ref.watch(TagRepository.provider),
+      feedsNotifier: ref.watch(FeedsStateNotifier.provider.notifier),
     )..loadState();
 
     // setup router info listener
@@ -50,6 +59,7 @@ class MainPageNotifier extends StateNotifier<MainViewModel> {
   @override
   void dispose() {
     subscriptions.dispose();
+    _isDisposed = true;
     sLogger.d('Dispose main notifier');
     super.dispose();
   }
@@ -61,6 +71,21 @@ class MainPageNotifier extends StateNotifier<MainViewModel> {
       state = state.copyWith(isShowSettingBottomTab: isLoggedIn);
       goRouter.go('/');
     }).addTo(subscriptions);
+  }
+
+  Future<void> onTapOpenTag() async {
+    final result = await tagRepository.getTags();
+    result.whenOrNull(
+      success: (tags) {
+        if (!_isDisposed) {
+          state = state.copyWith(tags: tags);
+        }
+      },
+    );
+  }
+
+  void onTapTag(String tag) {
+    feedsNotifier.addTagTab(tag);
   }
 
   Future<void> onSelectNavigationItem(int index) async {

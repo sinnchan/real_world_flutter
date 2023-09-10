@@ -58,14 +58,20 @@ class ArticleEdit extends HookConsumerWidget {
               onChanged: (v) => notifier.updateDescription(v),
             ),
             const SizedBox(height: 20),
-            TextFormField(
-              initialValue: vm.body,
-              textInputAction: TextInputAction.next,
-              keyboardType: TextInputType.text,
-              decoration: const InputDecoration(
-                hintText: 'Write your article',
+            SizedBox(
+              height: 200,
+              child: TextFormField(
+                initialValue: vm.body,
+                textInputAction: TextInputAction.next,
+                textAlignVertical: TextAlignVertical.top,
+                expands: true,
+                maxLines: null,
+                keyboardType: TextInputType.text,
+                decoration: const InputDecoration(
+                  hintText: 'Write your article',
+                ),
+                onChanged: (v) => notifier.updateBody(v),
               ),
-              onChanged: (v) => notifier.updateBody(v),
             ),
             const SizedBox(height: 20),
             TextFormField(

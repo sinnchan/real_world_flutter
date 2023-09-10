@@ -4,6 +4,7 @@ import 'package:dio/dio.dart' hide Headers;
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:real_world_flutter/infrastructure/api/schema/articles/api_single_article_response.dart';
 import 'package:real_world_flutter/infrastructure/api/schema/articles/api_articles_response.dart';
+import 'package:real_world_flutter/infrastructure/api/schema/articles/api_tags_response.dart';
 import 'package:real_world_flutter/infrastructure/api/schema/profile/api_profile.dart';
 import 'package:real_world_flutter/infrastructure/api/schema/user/api_user.dart';
 import 'package:retrofit/retrofit.dart';
@@ -140,6 +141,11 @@ abstract class RealWorldApi {
     @Path('slug') required String slug,
     @Header('Authorization') required ApiToken token,
   });
+
+  // tag
+  @GET('/tags')
+  @Headers(_headers)
+  Future<ApiTagResponse> getTags();
 }
 
 class ApiToken {
