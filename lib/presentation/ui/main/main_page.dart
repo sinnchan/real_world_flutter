@@ -27,13 +27,14 @@ class MainPage extends HookConsumerWidget {
         title: const Text('conduit'),
         backgroundColor: Theme.of(context).primaryColor,
         actions: [
-          IconButton(
-            onPressed: notifier.onTapOpenTag,
-            icon: const Icon(
-              Icons.sell,
-              color: AppColors.white,
+          if (vm.isShowTagButton)
+            IconButton(
+              onPressed: notifier.onTapOpenTag,
+              icon: const Icon(
+                Icons.sell,
+                color: AppColors.white,
+              ),
             ),
-          ),
         ],
       ),
       body: child,
