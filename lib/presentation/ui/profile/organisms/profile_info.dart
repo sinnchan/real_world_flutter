@@ -15,7 +15,7 @@ class ProfileInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final iconImage = profile?.image?.let((it) {
-      return Image.network(it.toString());
+      return Image.network(it.toString(), fit: BoxFit.cover);
     });
     return Padding(
       padding: const EdgeInsets.all(20),

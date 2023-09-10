@@ -4,9 +4,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:real_world_flutter/domain/model/article.dart';
 import 'package:real_world_flutter/main.dart';
 import 'package:real_world_flutter/presentation/ui/articles/molecules/article_author.dart';
-import 'package:real_world_flutter/presentation/ui/articles/molecules/favorite_counter.dart';
-import 'package:real_world_flutter/presentation/ui/articles/molecules/lsit_item/article_list_item_notifier.dart';
-import 'package:real_world_flutter/presentation/ui/articles/molecules/lsit_item/article_list_item_view_model.dart';
+import 'package:real_world_flutter/presentation/ui/articles/molecules/favorite_button.dart';
+import 'package:real_world_flutter/presentation/ui/articles/molecules/shared/shared_article_notifier.dart';
+import 'package:real_world_flutter/presentation/ui/articles/molecules/shared/shared_article_view_model.dart';
 import 'package:real_world_flutter/presentation/ui/common/color/ext_color.dart';
 
 class ArticleListItem extends HookConsumerWidget {
@@ -23,7 +23,7 @@ class ArticleListItem extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final provider = ArticleListItemNotifier.provider(data);
+    final provider = SharedArticleNotifier.provider(data);
     final vm = ref.watch(provider);
     final notifier = ref.watch(provider.notifier);
 
@@ -56,8 +56,8 @@ class ArticleListItem extends HookConsumerWidget {
   }
 
   Row _header(
-    ArticleListItemViewModel vm,
-    ArticleListItemNotifier notifier,
+    SharedArticleViewModel vm,
+    SharedArticleNotifier notifier,
   ) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -68,7 +68,7 @@ class ArticleListItem extends HookConsumerWidget {
           createdAt: vm.artile.createdAt,
           onTap: notifier.onTapAuthorInfo,
         ),
-        FavoriteCounter(
+        FavoriteButton(
           favoritesCount: vm.artile.favoritesCount,
           favorited: vm.artile.favorited,
           onTap:
@@ -78,7 +78,7 @@ class ArticleListItem extends HookConsumerWidget {
     );
   }
 
-  Widget _contents(ArticleListItemNotifier notifier) {
+  Widget _contents(SharedArticleNotifier notifier) {
     return InkWell(
       onTap: notifier.onTapContents,
       splashColor: AppColors.main.withLight(0.4),

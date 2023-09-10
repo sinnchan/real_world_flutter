@@ -4,21 +4,20 @@ import 'package:real_world_flutter/domain/model/article.dart';
 import 'package:real_world_flutter/domain/repository/articles_repository.dart';
 import 'package:real_world_flutter/domain/util/logger.dart';
 import 'package:real_world_flutter/presentation/navigation/app_navigation.dart';
-import 'package:real_world_flutter/presentation/ui/articles/molecules/lsit_item/article_list_item_view_model.dart';
-import 'package:state_notifier/state_notifier.dart';
+import 'package:real_world_flutter/presentation/ui/articles/molecules/shared/shared_article_view_model.dart';
 
-typedef _Vm = ArticleListItemViewModel;
-typedef _Notifier = ArticleListItemNotifier;
+typedef _Vm = SharedArticleViewModel;
+typedef _Notifier = SharedArticleNotifier;
 typedef _Provider
     = AutoDisposeStateNotifierProviderFamily<_Notifier, _Vm, Article>;
 
-class ArticleListItemNotifier extends StateNotifier<_Vm> {
+class SharedArticleNotifier extends StateNotifier<_Vm> {
   final ArticlesRepository _articlesRepository;
   final GoRouter _goRouter;
   void Function(Article)? updateArticleLitener;
   var _isDisposed = false;
 
-  ArticleListItemNotifier(
+  SharedArticleNotifier(
     super.state,
     this._articlesRepository,
     this._goRouter,
@@ -39,7 +38,7 @@ class ArticleListItemNotifier extends StateNotifier<_Vm> {
   }
 
   void onTapAuthorInfo() {
-    _goRouter.push('/article/${state.artile.slug}');
+    _goRouter.push('/profile/${state.artile.author.username}');
   }
 
   Future<void> onTapFavoriteButton() async {
@@ -69,5 +68,7 @@ class ArticleListItemNotifier extends StateNotifier<_Vm> {
     }
   }
 
-  void onTapContents() {}
+  void onTapContents() {
+    _goRouter.push('/article/${state.artile.slug}');
+  }
 }

@@ -9,12 +9,14 @@ class ArticleAuthor extends StatelessWidget {
     this.image,
     required this.createdAt,
     this.onTap,
+    this.textColor,
   });
 
   final Uri? image;
   final String username;
   final DateTime createdAt;
   final void Function()? onTap;
+  final Color? textColor;
 
   @override
   Widget build(BuildContext context) {
@@ -64,9 +66,10 @@ class ArticleAuthor extends StatelessWidget {
   Widget _date() {
     return Text(
       createdAt.toString(),
-      style: const TextStyle(
+      style: TextStyle(
         fontSize: 12,
         fontWeight: FontWeight.w200,
+        color: textColor,
       ),
     );
   }

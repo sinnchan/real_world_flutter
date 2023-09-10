@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:real_world_flutter/main.dart';
 
-class FavoriteCounter extends StatelessWidget {
-  const FavoriteCounter({
+class FavoriteButton extends StatelessWidget {
+  const FavoriteButton({
     super.key,
     this.favorited = false,
     required this.favoritesCount,
